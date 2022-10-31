@@ -3,8 +3,10 @@
 Based on the [Redis](https://redis.io/docs/reference/patterns/distributed-locks/) distributed lock algorithm.
 
 This POC is a simple implementation of the redis lock algorithm that is used to lock the access to a resource
-based on a key. The lock is configured per client, that means each client can have a different lock
-resource. The retry mechanism is an infinite loop that will try to acquire the lock until it succeeds. There is a 
+based on a key. The lock is configured per client, that means each client will have a different lock resource 
+(a different key in redis). The expiration of the lock is configured to 60 seconds if the lock is not
+released before that time.
+The retry mechanism is an infinite loop that will try to acquire the lock until it succeeds. There is a 
 delay between each retry, it's configured to 250ms by default. There is no timeout applied to the retry mechanism.
 
 The script create as many clients as you want, each client will try to acquire the lock and will
