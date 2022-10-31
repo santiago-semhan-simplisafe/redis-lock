@@ -74,7 +74,7 @@ func lockAndSend(redisLock *lock.RedisLock, clientUUID string, index int) bool {
 
 	rand.Seed(time.Now().UnixNano())
 	// Simulate sending command to basestation. Random wait between 2 and 5 seconds
-	seconds := rand.Intn(3) + 2
+	seconds := rand.Intn(4) + 2
 	fmt.Println(time.Now().Format("15:04:05.000"), "🚀 Sending command. ", clientUUID, "index:", index, "wait:", seconds, "seconds")
 	time.Sleep(time.Duration(seconds) * time.Second)
 
