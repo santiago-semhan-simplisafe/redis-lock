@@ -26,7 +26,7 @@ This version is running on a single node Redis instance. Currently working on th
 ```bash
   docker-compose up -d
   go mod download
-  go run command.go --clients=4 --comands=2 --delay=250 --host=docker.for.mac.localhost
+  go run command.go --clients=4 --commands=2 --delay=250 --host=docker.for.mac.localhost
 ```
 
 ### Running with Docker
