@@ -23,12 +23,12 @@ This version is running on a single node Redis instance. Currently working on th
 
 - First run the local Redis instance with `docker-compose up -d`
 - Install go modules with `go mod download`
-- Then run the application with `go run command.go`
+- Then run the application with `go run main.go`
 
 ```bash
   docker-compose up -d
   go mod download
-  go run command.go --clients=4 --commands=2 --delay=250
+  go run main.go --clients=4 --commands=2 --delay=250
 ```
 
 ### Running with Docker
