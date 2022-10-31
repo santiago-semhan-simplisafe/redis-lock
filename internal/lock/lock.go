@@ -8,6 +8,7 @@ import (
 
 type RedisLock struct {
 	client *redis.Client
+	mode   string
 }
 
 type Lock struct {
@@ -17,8 +18,13 @@ type Lock struct {
 	exp      time.Duration
 }
 
-func NewRedisLock(client *redis.Client) *RedisLock {
-	return &RedisLock{client: client}
+func NewRedisLock(host string, mode string) *RedisLock {
+	client := redis.NewClient(&redis.Options{
+		Addr:     host + ":6379",
+		Password: "",
+		DB:       0,
+	})
+	return &RedisLock{client: client, mode: mode}
 }
 
 func (rl *RedisLock) Aquire(key string, value string, exp time.Duration) (*Lock, error) {
@@ -28,7 +34,6 @@ func (rl *RedisLock) Aquire(key string, value string, exp time.Duration) (*Lock,
 	}
 
 	return &Lock{IsLocked: ok, key: key, value: value, exp: exp}, nil
-
 }
 
 func (rl *RedisLock) Release(lock *Lock) error {

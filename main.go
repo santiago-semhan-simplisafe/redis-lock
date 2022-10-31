@@ -8,7 +8,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-redis/redis/v7"
 	"github.com/google/uuid"
 	"github.com/santiago-simplisafe/redis-lock/internal/lock"
 )
@@ -20,16 +19,11 @@ func main() {
 	commandsPtr := flag.Int("commands", 10, "Number of commands per client")
 	delayPtr := flag.Int("delay", 250, "Delay between commands in milliseconds")
 	hostAddrPtr := flag.String("host", "localhost", "Redis host address")
+	modePtr := flag.String("mode", "single", "single or cluster")
 
 	flag.Parse()
 
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     *hostAddrPtr + ":6379",
-		Password: "",
-		DB:       0,
-	})
-
-	redisLock := lock.NewRedisLock(rdb)
+	redisLock := lock.NewRedisLock(*hostAddrPtr, *modePtr)
 
 	start := time.Now()
 
